@@ -1,4 +1,4 @@
-package com.mappoc;
+package com.mappoc.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,22 +18,28 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
+import com.mappoc.utils.MyClusterRender;
+import com.mappoc.R;
+import com.mappoc.model.Person;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
+public class ClusteringActivity extends AppCompatActivity implements OnMapReadyCallback,
         ClusterManager.OnClusterItemClickListener<Person>,
         ClusterManager.OnClusterClickListener<Person> {
 
     private ClusterManager<Person> mClusterManager;
     private GoogleMap mMap;
-    private Double baseLat = 28.7041;
-    private Double baseLong = 77.1025;
-    private int start = 1;
+    private ClusteringActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_clustering);
+        initViewModel();
         initMap();
+    }
+
+    private void initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(ClusteringActivityViewModel.class);
     }
 
     private void initMap() {
@@ -66,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        mMap.setBuildingsEnabled(true);
         mMap.setIndoorEnabled(true);
         mMap.setTrafficEnabled(true);
         UiSettings mUiSettings = mMap.getUiSettings();
@@ -97,13 +103,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onClusterItemClick(Person person) {
         return false;
     }
-//    https://homepages.cae.wisc.edu/~ece533/images/airplane.png
+
+
     public void addPerson(View view) {
-        for (int i = start; i <= start + 10; i++) {
-            baseLat += 0.00045;
-            baseLong += 0.00032;
-            mClusterManager.addItem(new Person(baseLat, baseLong, "Person " + i, "https://i.pravatar.cc/300"));
-        }
+        mClusterManager.addItems(viewModel.getPersonList());
         mClusterManager.cluster();
     }
 }

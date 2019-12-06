@@ -1,10 +1,6 @@
-package com.mappoc;
+package com.mappoc.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,12 +19,13 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+import com.mappoc.R;
+import com.mappoc.model.Person;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,10 +41,10 @@ public class MyClusterRender extends DefaultClusterRenderer<Person> {
         super(context, map, clusterManager);
         this.context = context;
 
-        View markerView = LayoutInflater.from(context).inflate(R.layout.layout_cluster_marker, null);
-        placeholderBitmapForMarker = generateBitmap(markerView);
-        View clusterView = LayoutInflater.from(context).inflate(R.layout.layout_cluster, null);
-        placeholderBitmapForCluster = generateBitmap(clusterView);
+        View markerView = LayoutInflater.from(context).inflate(R.layout.layout_cluster_item_marker, null);
+        placeholderBitmapForMarker = AppUtils.createBitmapOfMarker(markerView);
+        View clusterView = LayoutInflater.from(context).inflate(R.layout.layout_cluster_marker, null);
+        placeholderBitmapForCluster = AppUtils.createBitmapOfMarker(clusterView);
     }
 
 
@@ -77,21 +74,6 @@ public class MyClusterRender extends DefaultClusterRenderer<Person> {
     protected void onBeforeClusterItemRendered(Person item, MarkerOptions markerOptions) {
     }
 
-    private BitmapDescriptor generateBitmap(View view) {
-        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-        view.buildDrawingCache();
-        Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(returnedBitmap);
-        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
-        Drawable drawable = view.getBackground();
-        if (drawable != null)
-            drawable.draw(canvas);
-        view.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(returnedBitmap);
-    }
-
     @Override
     public void setOnClusterItemClickListener(ClusterManager.OnClusterItemClickListener<Person> listener) {
         super.setOnClusterItemClickListener(listener);
@@ -103,7 +85,7 @@ public class MyClusterRender extends DefaultClusterRenderer<Person> {
     }
 
     private void createCustomItemMarkerLayout(Person person, final Marker marker) {
-        final View customClusterItemMarkerView = LayoutInflater.from(context).inflate(R.layout.layout_cluster_marker, null);
+        final View customClusterItemMarkerView = LayoutInflater.from(context).inflate(R.layout.layout_cluster_item_marker, null);
         final AppCompatImageView ivProfile = customClusterItemMarkerView.findViewById(R.id.iv_profile);
         Glide.with(customClusterItemMarkerView.getContext())
                 .load(person.getProfileUrl())
@@ -124,7 +106,7 @@ public class MyClusterRender extends DefaultClusterRenderer<Person> {
 
 
     private void createClusterMarkerLayout(Marker marker, Cluster<Person> cluster) {
-        View customClusterMarkerView = LayoutInflater.from(context).inflate(R.layout.layout_cluster, null);
+        View customClusterMarkerView = LayoutInflater.from(context).inflate(R.layout.layout_cluster_marker, null);
         AppCompatImageView ivUserImageOne = customClusterMarkerView.findViewById(R.id.iv_one);
         AppCompatImageView ivUserImageTwo = customClusterMarkerView.findViewById(R.id.iv_two);
         AppCompatTextView tvCount = customClusterMarkerView.findViewById(R.id.tv_count);
@@ -188,7 +170,7 @@ public class MyClusterRender extends DefaultClusterRenderer<Person> {
 
     private void setMarker(Marker marker, View view) {
         tempLoaded = 0;
-        marker.setIcon(generateBitmap(view));
+        marker.setIcon(AppUtils.createBitmapOfMarker(view));
     }
 
 }
