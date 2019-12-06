@@ -25,7 +25,7 @@ import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.mappoc.R;
-import com.mappoc.model.Person;
+import com.mappoc.data.model.Person;
 
 import java.util.ArrayList;
 import java.util.Collection;

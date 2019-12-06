@@ -1,8 +1,8 @@
-package com.mappoc.ui;
+package com.mappoc.ui.cluster;
 
 import androidx.lifecycle.ViewModel;
 
-import com.mappoc.model.Person;
+import com.mappoc.data.model.Person;
 
 import java.util.ArrayList;
 

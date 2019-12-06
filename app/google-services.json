@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "602882957087",
+    "firebase_url": "https://maps-7dd74.firebaseio.com",
+    "project_id": "maps-7dd74",
+    "storage_bucket": "maps-7dd74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602882957087:android:126320137e1615ddb11a2a",
+        "android_client_info": {
+          "package_name": "com.googlemaps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602882957087-3gb1bo0l4rq8r6im09pjq96431rhmcoi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.googlemaps",
+            "certificate_hash": "44a33ae438011c376e98a39c4fc8e89b40ef8770"
+          }
+        },
+        {
+          "client_id": "602882957087-phvnb6und78drfjalkd1l757ems55tdn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXlUvuetFQ2kUfl65tgBPE9AsM-WHiWDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602882957087-phvnb6und78drfjalkd1l757ems55tdn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602882957087:android:21fb83ea28f9dd3cb11a2a",
+        "android_client_info": {
+          "package_name": "com.mappoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602882957087-phvnb6und78drfjalkd1l757ems55tdn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXlUvuetFQ2kUfl65tgBPE9AsM-WHiWDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602882957087-phvnb6und78drfjalkd1l757ems55tdn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

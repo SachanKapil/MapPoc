@@ -1,13 +1,11 @@
-package com.mappoc.ui;
+package com.mappoc.ui.cluster;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,9 +16,10 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
-import com.mappoc.utils.MyClusterRender;
 import com.mappoc.R;
-import com.mappoc.model.Person;
+import com.mappoc.data.model.Person;
+import com.mappoc.ui.livetracking.LiveTrackingActivity;
+import com.mappoc.utils.MyClusterRender;
 
 public class ClusteringActivity extends AppCompatActivity implements OnMapReadyCallback,
         ClusterManager.OnClusterItemClickListener<Person>,
@@ -72,7 +71,6 @@ public class ClusteringActivity extends AppCompatActivity implements OnMapReadyC
         if (mMap != null) {
             return;
         }
-
         mMap.setIndoorEnabled(true);
         mMap.setTrafficEnabled(true);
         UiSettings mUiSettings = mMap.getUiSettings();
@@ -83,10 +81,6 @@ public class ClusteringActivity extends AppCompatActivity implements OnMapReadyC
         mUiSettings.setZoomGesturesEnabled(true);
         mUiSettings.setTiltGesturesEnabled(true);
         mUiSettings.setRotateGesturesEnabled(true);
-        // permissions
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
         mMap.setMyLocationEnabled(true);
     }
 
@@ -108,5 +102,9 @@ public class ClusteringActivity extends AppCompatActivity implements OnMapReadyC
     public void addPerson(View view) {
         mClusterManager.addItems(viewModel.getPersonList());
         mClusterManager.cluster();
+    }
+
+    public void openLiveTrackActivity(View view) {
+        startActivity(new Intent(this, LiveTrackingActivity.class));
     }
 }
